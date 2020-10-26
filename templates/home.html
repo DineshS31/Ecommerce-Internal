@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Welcome</title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body style="background: bisque;">
+<div id="title">
+	<a href="/">
+		<img id="logo" src= {{ url_for('static', filename='images/2020-05-20-best-free-ecommerce-website-builder.jpg') }} />
+	</a>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
+
+	{% if not loggedIn %}
+	<div id="signInButton">
+		<a class="link" href="/loginForm">Sign In</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{firstName}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Your orders</a>
+			<a href="/account/profile">Your profile</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			CART {{noOfItems}}
+		</a>
+	</div>
+</div>
+<div class="display">
+	<h2>Shop by Category: </h2>
+	<div>
+		{% for data in itemData %}
+			<table>
+				<tr id="productName">
+				<td>
+					{{data['type']}}
+				</td>
+				</tr>
+				<tr id="productImage">
+					<tr>
+						<img src={{data['image_url']}} width="200" height="200">
+					</tr>
+				</tr>
+			</table>
+		{% endfor %}
+	</div>
+</div>
+</body>
+</html>
+
